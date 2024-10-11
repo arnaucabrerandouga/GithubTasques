@@ -1,0 +1,7 @@
+11 oct 2024 21:46:46,955 INFO  ~ Starting C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques\.
+11 oct 2024 21:46:47,365 ERROR ~ Module docviewer will not be loaded because C:\Users\tarre\OneDrive\Desktop\Aerotelecom\QUART\4A\PES\play-1.5.3\modules\docviewer does not exist
+11 oct 2024 21:46:47,520 WARN  ~ You're running Play! in DEV mode
+11 oct 2024 21:46:50,275 INFO  ~ HikariPool-1 - Starting...
+11 oct 2024 21:46:50,426 INFO  ~ HikariPool-1 - Start completed.
+11 oct 2024 21:46:50,445 INFO  ~ Connected to jdbc:h2:mem:play for default
+11 oct 2024 21:46:53,354 INFO  ~ Application 'tasques' is now started !
