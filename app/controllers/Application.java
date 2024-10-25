@@ -41,7 +41,7 @@ public class Application extends Controller {
         // Limpiar base de datos (opcional, útil para pruebas)
         Fixtures.deleteDatabase();
 
-        // Crear algunos usuarios de ejemplo
+        // Crear algunos usuarios de ejemplo (els constructors tenen parámetres)
         Usuario usuario1 = new Usuario("Arnau", "arnau@gmail.com", "password");
         usuario1.save();
 
@@ -76,5 +76,20 @@ public class Application extends Controller {
         usuarioTarea2.save();
 
         renderText("Base de datos inicializada con datos de ejemplo.");
+    }
+
+    public static void darDeBajaUsuario(String nombre) {
+        Usuario usuarioExistente = Usuario.find("byNombre", nombre).first();
+
+        if (usuarioExistente != null) {
+            try {
+                usuarioExistente.delete();
+                renderText("Usuario " + nombre + " y todos sus datos asociados eliminados con éxito.");
+            } catch (Exception e) {
+                renderText("Error al eliminar el usuario " + nombre + ": " + e.getMessage());
+            }
+        } else {
+            renderText("Usuario no encontrado: " + nombre);
+        }
     }
 }
