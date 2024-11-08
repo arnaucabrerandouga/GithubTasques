@@ -12,6 +12,10 @@ public class Application extends Controller {
         render();
     }
 
+    public static void register() {
+        renderTemplate("Application/register.html");
+    }
+
     public static void registrarUsuario(String nombre, String correoElectronico, String contraseña, String perfil) {
         Usuario usuarioExistente = Usuario.find("byCorreoElectronico", correoElectronico).first();
 

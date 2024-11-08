@@ -1,0 +1,35 @@
+
+#{form @registrarUsuario(), id:'formRegister'}
+#{field 'user.nombre'}
+<p class="${field.errorClass}">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" size="16" value="${user?.nombre}"> *
+    <span class="error">${field.error}</span>
+</p>
+#{/field}
+#{field 'user.correoElectronico'}
+<p class="${field.errorClass}">
+    <label>Correo Electrónico:</label>
+    <input type="email" name="correoElectronico" size="16" value="${user?.correoElectronico}"> *
+    <span class="error">${field.error}</span>
+</p>
+#{/field}
+#{field 'user.contraseña'}
+<p class="${field.errorClass}">
+    <label>Contraseña:</label>
+    <input type="password" name="contraseña" size="16" value="${user?.contraseña}"> *
+    <span class="error">${field.error}</span>
+</p>
+#{/field}
+#{field 'perfil'}
+<p class="${field.errorClass}">
+    <label>Perfil:</label>
+    <input type="text" name="perfil" size="16" value="${perfil}">
+    <span class="error">${field.error}</span>
+    <small>(Opcional)</small>
+</p>
+#{/field}
+<p class="buttons">
+    <input type="submit" value="Registrar"> <a href="@{index()}">Cancelar</a>
+</p>
+#{/form}
