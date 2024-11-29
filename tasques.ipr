@@ -25,4 +25,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
+  <component name="ProjectRootManager" version="2" default="true">
+    <output url="file://$PROJECT_DIR$/tmp/classes" />
+  </component>
 </project>
