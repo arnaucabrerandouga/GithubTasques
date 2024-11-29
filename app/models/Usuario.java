@@ -9,9 +9,9 @@ import java.util.List;
 @Entity
 public class Usuario extends Model{
 
-    @Id // PK: La clave primaria de la tabla Usuario
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   //@Id // PK: La clave primaria de la tabla Usuario
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+  //  private Long id;
 
     private String nombre;
     private String correoElectronico;

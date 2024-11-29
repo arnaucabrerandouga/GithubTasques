@@ -7,9 +7,9 @@ import java.util.Date;
 @Entity
 public class Comentario extends Model{
 
-    @Id // PK: La clave primaria de la tabla Comentario
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    //@Id // PK: La clave primaria de la tabla Comentario
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Long id;
 
     @ManyToOne // FK: Referencia a la tabla Tarea
     @JoinColumn(name = "tarea_id")

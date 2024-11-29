@@ -8,10 +8,10 @@ import java.util.List;
 @Entity
 public class Tarea extends Model{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // PK: Clave primaria de la tabla Tarea
-
+    //@Id aixo ens ho fa la clase model
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Long id; // PK: Clave primaria de la tabla Tarea
+    //podem pusar public en comptes de private
     private String titulo;
     private String descripcion;
     private String estado;

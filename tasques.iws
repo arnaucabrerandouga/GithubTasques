@@ -6,10 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="76fa5f90-720c-4ed6-a558-eee31242d21d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/Application/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/Comentario.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Comentario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/Tarea.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Tarea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/UsuarioTarea.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/UsuarioTarea.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tasques.iws" beforeDir="false" afterPath="$PROJECT_DIR$/tasques.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/_app_views_Application_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/_app_views_Application_index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/controllers.Application" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/controllers.Application" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Comentario" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Comentario" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Tarea" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Tarea" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Usuario" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Usuario" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/models.UsuarioTarea" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/models.UsuarioTarea" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/controllers/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/controllers/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/models/Comentario.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/models/Comentario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/models/Tarea.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/models/Tarea.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/models/Usuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/models/Usuario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/models/UsuarioTarea.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/models/UsuarioTarea.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,12 +72,17 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/arnau/OneDrive/Escritorio/play-1.5.3/play-1.5.3/tasques&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/arnau/OneDrive/Escritorio/play-1.5.3/play-1.5.3/tasques/app/views/Application&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques\app\views\Application" />
+    </key>
+  </component>
   <component name="RunManager" selected="JUnit.All in tasques">
     <configuration name="All in tasques (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tasques" />
@@ -132,7 +148,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="HEAD" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>

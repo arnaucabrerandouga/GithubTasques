@@ -5,6 +5,7 @@ import play.mvc.*;
 import models.*;
 import play.test.Fixtures;
 import java.util.Date;
+import java.util.ArrayList;  // Importa ArrayList
 
 public class Application extends Controller {
 
@@ -32,15 +33,41 @@ public class Application extends Controller {
     }
 
     public static void login(String correoElectronico, String contraseña) {
+        // Buscar el usuario en la base de datos
         Usuario usuarioExistente = Usuario.find("byCorreoElectronicoAndContraseña", correoElectronico, contraseña).first();
 
         if (usuarioExistente != null) {
-            renderText("Inicio de sesión exitoso. ¡Bienvenido, " + usuarioExistente.getNombre() + "!");
+            // Obtener las tareas asociadas al usuario mediante la tabla intermedia UsuarioTarea
+            List<UsuarioTarea> usuarioTareas = UsuarioTarea.find("byUsuario", usuarioExistente).fetch();
+
+            // Crear una lista de tareas para pasar a la vista
+            List<Tarea> tareas = new ArrayList<>();
+            for (UsuarioTarea usuarioTarea : usuarioTareas) {
+                tareas.add(usuarioTarea.getTarea()); // Agregar la tarea asociada
+            }
+
+            // Guardar el usuario y las tareas en los argumentos para enviarlos a la vista
+            renderArgs.put("usuario", usuarioExistente);
+            renderArgs.put("tareas", tareas);
+
+            // Renderizar la página principal con las tareas
+            renderTemplate("Application/PaginaPrincipal.html");
         } else {
+            // Mostrar mensaje de error si las credenciales son incorrectas
             renderText("Correo electrónico o contraseña incorrectos.");
         }
     }
 
+
+
+
+    public static void logout() {
+        session.clear(); // Limpia la sesión actual
+        index(); // Redirige al método index()
+    }
+
+
+/*
     public static void iniBD() {
         // Limpiar base de datos (opcional, útil para pruebas)
         Fixtures.deleteDatabase();
@@ -81,7 +108,7 @@ public class Application extends Controller {
 
         renderText("Base de datos inicializada con datos de ejemplo.");
     }
-
+*/
     public static void darDeBajaUsuario(String nombre) {
         Usuario usuarioExistente = Usuario.find("byNombre", nombre).first();
 

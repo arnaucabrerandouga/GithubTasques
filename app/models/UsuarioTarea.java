@@ -7,9 +7,9 @@ import java.util.Date;
 @Entity
 public class UsuarioTarea extends Model{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // PK: Clave primaria de la tabla UsuarioTarea
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Long id; // PK: Clave primaria de la tabla UsuarioTarea
 
     @ManyToOne
     @JoinColumn(name = "usuario_id") // FK: Clave foránea a la tabla Usuario

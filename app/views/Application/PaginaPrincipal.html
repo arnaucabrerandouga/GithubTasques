@@ -1,0 +1,21 @@
+#{if usuario}
+<h1>¡Bienvenido, ${usuario.nombre}!</h1>
+<p>Tu correo electrónico es: ${usuario.correoElectronico}</p>
+
+<h2>Las tareas del usuario ${usuario.nombre} son:</h2>
+
+#{list items:tareas, as:'tarea'}
+<h3>${tarea.titulo}</h3>  <!-- Cambié 'nombre' por 'titulo' -->
+<p>${tarea.descripcion}</p>
+<p>Estado: ${tarea.estado}</p>
+<p>Prioridad: ${tarea.prioridad}</p>
+#{/list}
+
+<p>
+    <a href="@{logout()}">Logout</a>
+</p>
+#{/if}
+
+#{else}
+<p>Error: Usuario no encontrado</p>
+#{/else}
