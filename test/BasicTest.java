@@ -1,9 +1,7 @@
-
 import org.junit.*;
 import play.db.jpa.JPA;
 import play.test.*;
 import javax.persistence.*;
-
 
 import models.*;
 
@@ -16,8 +14,8 @@ public class BasicTest extends UnitTest {
 
     @Test
     public void testCrearDatos() {
-        // Crear un usuario (solo con los campos obligatorios)
-        Usuario usuario = new Usuario("Arnau", "arnau@gmail.com", "password");
+        // Crear un usuario con rol asignado (ahora incluye el rol)
+        Usuario usuario = new Usuario("Arnau", "arnau@gmail.com", "password", Rol.PADRE); // Asignando el rol PADRE
         usuario.setPerfil("admin"); // Establecer el perfil opcionalmente
         JPA.em().persist(usuario);
 
@@ -36,5 +34,21 @@ public class BasicTest extends UnitTest {
 
         // Flushear los datos a la base de datos
         JPA.em().flush();
+
+        // Verificar que los datos han sido persistidos correctamente
+        Usuario usuarioGuardado = Usuario.find("byCorreoElectronico", "arnau@gmail.com").first();
+        assertNotNull(usuarioGuardado);  // Verificar que el usuario fue guardado
+        assertEquals(Rol.PADRE, usuarioGuardado.getRol()); // Verificar que el rol es el correcto
+
+        Tarea tareaGuardada = Tarea.find("byTitulo", "Desarrollar aplicación").first();
+        assertNotNull(tareaGuardada);  // Verificar que la tarea fue guardada
+
+        // Verificar que la relación UsuarioTarea se ha creado
+        UsuarioTarea usuarioTareaGuardada = UsuarioTarea.find("byUsuarioAndTarea", usuarioGuardado, tareaGuardada).first();
+        assertNotNull(usuarioTareaGuardada);  // Verificar que la relación fue creada correctamente
+
+        // Verificar que el comentario se ha guardado correctamente
+        Comentario comentarioGuardado = Comentario.find("byTareaAndUsuario", tareaGuardada, usuarioGuardado).first();
+        assertNotNull(comentarioGuardado);  // Verificar que el comentario fue guardado
     }
 }

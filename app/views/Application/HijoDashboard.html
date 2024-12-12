@@ -1,0 +1,22 @@
+<!-- HijoDashboard.html -->
+#{if usuario}
+<h1>¡Bienvenido, ${usuario.nombre}, al Panel de Hijos!</h1>
+<p>Tu correo electrónico es: ${usuario.correoElectronico}</p>
+
+<h2>Las tareas asignadas a ti son:</h2>
+
+#{list items:tareas, as:'tarea'}
+<h3>${tarea.titulo}</h3>
+<p>${tarea.descripcion}</p>
+<p>Estado: ${tarea.estado}</p>
+<p>Prioridad: ${tarea.prioridad}</p>
+#{/list}
+
+<p>
+  <a href="@{logout()}">Logout</a>
+</p>
+#{/if}
+
+#{else}
+<p>Error: Usuario no encontrado</p>
+#{/else}

@@ -11,15 +11,14 @@ public class Bootstrap extends Job {
     public void doJob() {
         // Load default data if the database is empty
         if(UsuarioTarea.count() == 0) {
-            //Inicialitzar la base de dades
             // Limpiar base de datos (opcional, útil para pruebas)
             Fixtures.deleteDatabase();
 
-            // Crear algunos usuarios de ejemplo (els constructors tenen parámetres)
-            Usuario usuario1 = new Usuario("Arnau", "arnau@gmail.com", "password");
+            // Crear algunos usuarios de ejemplo con rol
+            Usuario usuario1 = new Usuario("Arnau", "arnau@gmail.com", "password", Rol.PADRE); // Usar Rol.PADRE
             usuario1.save();
 
-            Usuario usuario2 = new Usuario("María", "maria@example.com", "password123");
+            Usuario usuario2 = new Usuario("María", "maria@example.com", "password123", Rol.HIJO); // Usar Rol.HIJO
             usuario2.save();
 
             // Crear algunas tareas de ejemplo
@@ -50,5 +49,4 @@ public class Bootstrap extends Job {
             usuarioTarea2.save();
         }
     }
-
 }

@@ -1,4 +1,3 @@
-
 #{form @registrarUsuario(), id:'formRegister'}
 #{field 'user.nombre'}
 <p class="${field.errorClass}">
@@ -7,6 +6,7 @@
     <span class="error">${field.error}</span>
 </p>
 #{/field}
+
 #{field 'user.correoElectronico'}
 <p class="${field.errorClass}">
     <label>Correo Electrónico:</label>
@@ -14,6 +14,7 @@
     <span class="error">${field.error}</span>
 </p>
 #{/field}
+
 #{field 'user.contraseña'}
 <p class="${field.errorClass}">
     <label>Contraseña:</label>
@@ -21,6 +22,7 @@
     <span class="error">${field.error}</span>
 </p>
 #{/field}
+
 #{field 'perfil'}
 <p class="${field.errorClass}">
     <label>Perfil:</label>
@@ -29,6 +31,19 @@
     <small>(Opcional)</small>
 </p>
 #{/field}
+
+<!-- Agregar selección de rol -->
+#{field 'user.rol'}
+<p class="${field.errorClass}">
+    <label>Rol:</label>
+    <select name="rol">
+        <option value="PADRE">PADRE</option>
+        <option value="HIJO">HIJO</option>
+    </select>
+    <span class="error">${field.error}</span>
+</p>
+#{/field}
+
 <p class="buttons">
     <input type="submit" value="Registrar"> <a href="@{index()}">Cancelar</a>
 </p>

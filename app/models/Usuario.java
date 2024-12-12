@@ -1,4 +1,5 @@
 package models;
+
 import play.db.jpa.Model;
 
 import javax.persistence.*;
@@ -6,12 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-public class Usuario extends Model{
 
-   //@Id // PK: La clave primaria de la tabla Usuario
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-  //  private Long id;
+@Entity
+public class Usuario extends Model {
 
     private String nombre;
     private String correoElectronico;
@@ -21,6 +19,10 @@ public class Usuario extends Model{
     @Column(nullable = true)  // Campo opcional
     private String perfil;
 
+    @Enumerated(EnumType.STRING)  // Guardamos el rol como un String en la base de datos
+    @Column(nullable = false) // El rol es obligatorio
+    private Rol rol; // Cambiamos a tipo 'Rol' (enum)
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL) // Relación con UsuarioTarea
     private List<UsuarioTarea> usuariosTareas = new ArrayList<>();
 
@@ -28,11 +30,12 @@ public class Usuario extends Model{
     private List<Comentario> comentarios = new ArrayList<>();
 
     // Constructor
-    public Usuario(String nombre, String correoElectronico, String contraseña) {
+    public Usuario(String nombre, String correoElectronico, String contraseña, Rol rol) {
         this.nombre = nombre;
         this.correoElectronico = correoElectronico;
         this.contraseña = contraseña;
         this.dataRegistro = new Date(); // Se asigna automáticamente la fecha actual
+        this.rol = rol; // Asignamos el rol en el constructor
     }
 
     // Getters y Setters
@@ -78,6 +81,14 @@ public class Usuario extends Model{
 
     public void setPerfil(String perfil) {
         this.perfil = perfil;
+    }
+
+    public Rol getRol() {
+        return rol; // Getter del rol
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol; // Setter del rol
     }
 
     public List<UsuarioTarea> getUsuariosTareas() {

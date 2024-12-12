@@ -17,17 +17,40 @@ public class Application extends Controller {
         renderTemplate("Application/register.html");
     }
 
-    public static void registrarUsuario(String nombre, String correoElectronico, String contraseña, String perfil) {
+    public static void registrarUsuario(String nombre, String correoElectronico, String contraseña, String perfil, String rol) {
+        // Verificar si ya existe un usuario con el mismo correo electrónico
         Usuario usuarioExistente = Usuario.find("byCorreoElectronico", correoElectronico).first();
 
         if (usuarioExistente == null) {
-            Usuario nuevoUsuario = new Usuario(nombre, correoElectronico, contraseña);
-            if (perfil != null && !perfil.isEmpty()) {
-                nuevoUsuario.setPerfil(perfil);
+            try {
+                // Verificar si el valor del rol es válido (PADRE o HIJO)
+                if (rol == null || rol.isEmpty()) {
+                    renderText("Rol no puede estar vacío.");
+                    return;
+                }
+
+                // Convertir el string 'rol' a un valor del enum 'Rol'
+                Rol rolUsuario = Rol.valueOf(rol.toUpperCase()); // Convierte el valor de 'rol' a Rol.PADRE o Rol.HIJO
+
+                // Crear un nuevo usuario con nombre, correo, contraseña y rol
+                Usuario nuevoUsuario = new Usuario(nombre, correoElectronico, contraseña, rolUsuario);
+
+                // Si se proporcionó un perfil, se asigna
+                if (perfil != null && !perfil.isEmpty()) {
+                    nuevoUsuario.setPerfil(perfil);
+                }
+
+                // Guardar el usuario en la base de datos
+                nuevoUsuario.save();
+
+                // Mensaje de éxito
+                renderText("Usuario registrado con éxito.");
+            } catch (IllegalArgumentException e) {
+                // Si el rol es incorrecto, devolver un mensaje de error
+                renderText("Rol inválido. Debe ser 'PADRE' o 'HIJO'.");
             }
-            nuevoUsuario.save();
-            renderText("Usuario registrado con éxito.");
         } else {
+            // Si el usuario ya existe, mostrar un mensaje de error
             renderText("El usuario ya existe.");
         }
     }
@@ -37,29 +60,48 @@ public class Application extends Controller {
         Usuario usuarioExistente = Usuario.find("byCorreoElectronicoAndContraseña", correoElectronico, contraseña).first();
 
         if (usuarioExistente != null) {
-            // Obtener las tareas asociadas al usuario mediante la tabla intermedia UsuarioTarea
-            List<UsuarioTarea> usuarioTareas = UsuarioTarea.find("byUsuario", usuarioExistente).fetch();
-
-            // Crear una lista de tareas para pasar a la vista
-            List<Tarea> tareas = new ArrayList<>();
-            for (UsuarioTarea usuarioTarea : usuarioTareas) {
-                tareas.add(usuarioTarea.getTarea()); // Agregar la tarea asociada
+            // Verificar que el rol del usuario no sea nulo o incorrecto
+            if (usuarioExistente.getRol() == null) {
+                renderText("Error: El usuario no tiene un rol asignado.");
+                return;
             }
 
-            // Guardar el usuario y las tareas en los argumentos para enviarlos a la vista
-            renderArgs.put("usuario", usuarioExistente);
-            renderArgs.put("tareas", tareas);
+            // Comprobar el rol del usuario y redirigir según el tipo de rol
+            if (usuarioExistente.getRol() == Rol.PADRE) {
+                // Obtener los hijos del usuario padre (suponiendo que puedes hacer esta consulta)
+                List<Usuario> hijos = Usuario.find("byRol", Rol.HIJO).fetch();
 
-            // Renderizar la página principal con las tareas
-            renderTemplate("Application/PaginaPrincipal.html");
+                // Obtener las tareas asociadas a los hijos
+                List<Tarea> tareasHijos = new ArrayList<>();
+                for (Usuario hijo : hijos) {
+                    List<UsuarioTarea> usuarioTareas = UsuarioTarea.find("byUsuario", hijo).fetch();
+                    for (UsuarioTarea usuarioTarea : usuarioTareas) {
+                        tareasHijos.add(usuarioTarea.getTarea());
+                    }
+                }
+
+                // Pasar los hijos y sus tareas a la vista
+                renderArgs.put("usuario", usuarioExistente);
+                renderArgs.put("hijos", hijos);
+                renderArgs.put("tareasHijos", tareasHijos);
+
+                // Redirigir a la página para padres
+                renderTemplate("Application/PadreDashboard.html");
+            } else if (usuarioExistente.getRol() == Rol.HIJO) {
+                // Pasar el usuario hijo a la vista
+                renderArgs.put("usuario", usuarioExistente);
+
+                // Redirigir a la página para hijos
+                renderTemplate("Application/HijoDashboard.html");
+            } else {
+                // Si no se encuentra un rol válido (aunque esto no debería ocurrir)
+                renderText("Error: Rol no válido.");
+            }
         } else {
             // Mostrar mensaje de error si las credenciales son incorrectas
-            renderText("Correo electrónico o contraseña incorrectos.");
+            renderText("Error: Correo electrónico o contraseña incorrectos.");
         }
     }
-
-
-
 
     public static void logout() {
         session.clear(); // Limpia la sesión actual

@@ -1,0 +1,24 @@
+<!-- PadreDashboard.html -->
+#{if usuario}
+<h1>¡Bienvenido, ${usuario.nombre}, al Panel de Padres!</h1>
+<p>Tu correo electrónico es: ${usuario.correoElectronico}</p>
+
+<h2>Gestiona las tareas de tus hijos:</h2>
+
+<!-- Mostrar las tareas de los hijos -->
+#{list items:hijos, as:'hijo'}
+<h3>Tareas de ${hijo.nombre}:</h3>
+#{list items:tareasHijos, as:'tarea'}
+<p><strong>${tarea.titulo}</strong>: ${tarea.descripcion}</p>
+<p>Estado: ${tarea.estado} | Prioridad: ${tarea.prioridad}</p>
+#{/list}
+#{/list}
+
+<p>
+    <a href="@{logout()}">Logout</a>
+</p>
+#{/if}
+
+#{else}
+<p>Error: Usuario no encontrado</p>
+#{/else}
