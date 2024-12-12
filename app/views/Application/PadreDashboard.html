@@ -1,24 +1,47 @@
-<!-- PadreDashboard.html -->
-#{if usuario}
-<h1>¡Bienvenido, ${usuario.nombre}, al Panel de Padres!</h1>
-<p>Tu correo electrónico es: ${usuario.correoElectronico}</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Padres</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles-parents.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container my-5">
+    #{if usuario}
+    <div class="card shadow-sm p-4">
+        <div class="card-body">
+            <h1 class="text-center">¡Bienvenido, ${usuario.nombre}, al Panel de Padres!</h1>
+            <p class="text-center">Tu correo electrónico es: ${usuario.correoElectronico}</p>
 
-<h2>Gestiona las tareas de tus hijos:</h2>
+            <h2 class="mt-4">Gestiona las tareas de tus hijos:</h2>
 
-<!-- Mostrar las tareas de los hijos -->
-#{list items:hijos, as:'hijo'}
-<h3>Tareas de ${hijo.nombre}:</h3>
-#{list items:tareasHijos, as:'tarea'}
-<p><strong>${tarea.titulo}</strong>: ${tarea.descripcion}</p>
-<p>Estado: ${tarea.estado} | Prioridad: ${tarea.prioridad}</p>
-#{/list}
-#{/list}
+            <!-- Mostrar las tareas de los hijos -->
+            #{list items:hijos, as:'hijo'}
+            <div class="mt-3">
+                <h3>Tareas de ${hijo.nombre}:</h3>
+                #{list items:tareasHijos, as:'tarea'}
+                <div class="border p-2 my-2">
+                    <p><strong>${tarea.titulo}</strong>: ${tarea.descripcion}</p>
+                    <p>Estado: ${tarea.estado} | Prioridad: ${tarea.prioridad}</p>
+                </div>
+                #{/list}
+            </div>
+            #{/list}
 
-<p>
-    <a href="@{logout()}">Logout</a>
-</p>
-#{/if}
+            <p class="text-center mt-4">
+                <a href="@{logout()}" class="btn btn-danger">Cerrar Sesión</a>
+            </p>
+        </div>
+    </div>
+    #{/if}
 
-#{else}
-<p>Error: Usuario no encontrado</p>
-#{/else}
+    #{else}
+    <p class="text-center text-danger">Error: Usuario no encontrado</p>
+    #{/else}
+</div>
+</body>
+</html>

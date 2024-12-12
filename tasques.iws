@@ -4,22 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76fa5f90-720c-4ed6-a558-eee31242d21d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Bootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/Application/PaginaPrincipal.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/PaginaPrincipal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/Application/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/register.html" afterDir="false" />
+    <list default="true" id="76fa5f90-720c-4ed6-a558-eee31242d21d" name="Changes" comment="Integración de Bootstrap 4.5 y W3.CSS y mejora del formulario de inicio de sesión con un aspecto más profesional.">
+      <change afterPath="$PROJECT_DIR$/app/views/Application/styles-parents.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/Application/PadreDashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/PadreDashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/Application/PaginaPrincipal.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tasques.iws" beforeDir="false" afterPath="$PROJECT_DIR$/tasques.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-result/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/test-result/application.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/BasicTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BasicTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/ApplicationTest" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/ApplicationTest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/BasicTest" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/BasicTest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/Bootstrap" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/Bootstrap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/_app_views_Application_register.html" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/_app_views_Application_register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/controllers.Application" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/controllers.Application" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Usuario" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Usuario" afterDir="false" />
     </list>
+    <list id="02be520b-e177-4282-8d3b-652268a1839e" name="Fixes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +26,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -75,7 +67,8 @@
     "last_opened_file_path": "C:/Users/arnau/OneDrive/Escritorio/play-1.5.3/play-1.5.3/tasques/app/views/Application",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -130,11 +123,45 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="76fa5f90-720c-4ed6-a558-eee31242d21d" name="Changes" comment="" />
+      <changelist id="02be520b-e177-4282-8d3b-652268a1839e" name="Fixes" comment="" />
       <created>1728032212892</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728032212892</updated>
     </task>
+    <task id="LOCAL-00001" summary="creación de roles para redirección correcta (PADRE/HIJO). Mejorada visualización de tareas y manejo de errores en templates y ajustados para mostrar tareas según rol.">
+      <option name="closed" value="true" />
+      <created>1733962378498</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733962378498</updated>
+    </task>
+    <task id="LOCAL-00002" summary="creación de roles para redirección correcta (PADRE/HIJO). Mejorada visualización de tareas y manejo de errores en templates y ajustados para mostrar tareas según rol.">
+      <option name="closed" value="true" />
+      <created>1733962552695</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733962552695</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixes:index.html">
+      <option name="closed" value="true" />
+      <created>1733966968565</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733966968565</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Integración de Bootstrap 4.5 y W3.CSS y mejora del formulario de inicio de sesión con un aspecto más profesional.">
+      <option name="closed" value="true" />
+      <created>1733968321496</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733968321496</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -159,5 +186,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="creación de roles para redirección correcta (PADRE/HIJO). Mejorada visualización de tareas y manejo de errores en templates y ajustados para mostrar tareas según rol." />
+    <MESSAGE value="Fixes:index.html" />
+    <MESSAGE value="Integración de Bootstrap 4.5 y W3.CSS y mejora del formulario de inicio de sesión con un aspecto más profesional." />
+    <option name="LAST_COMMIT_MESSAGE" value="Integración de Bootstrap 4.5 y W3.CSS y mejora del formulario de inicio de sesión con un aspecto más profesional." />
   </component>
 </project>
