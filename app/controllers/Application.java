@@ -6,6 +6,13 @@ import models.*;
 import play.test.Fixtures;
 import java.util.Date;
 import java.util.ArrayList;  // Importa ArrayList
+import java.time.LocalDateTime;  // Para trabajar con fechas y horas
+import java.time.format.DateTimeFormatter;  // Para formatear fechas
+import org.mindrot.jbcrypt.BCrypt;  // Importa la librería de bcrypt
+import play.Logger;  // Asegúrate de tener este import
+
+
+
 
 public class Application extends Controller {
 
@@ -17,152 +24,342 @@ public class Application extends Controller {
         renderTemplate("Application/register.html");
     }
 
+
+// Función para mostrar un mensaje de bienvenida (test para Android)
+    public static void testAndroid() {
+        // Mensaje de bienvenida para la app Android
+        renderText("¡Bienvenido al sistema!");
+    }
+
     public static void registrarUsuario(String nombre, String correoElectronico, String contraseña, String perfil, String rol) {
-        // Verificar si ya existe un usuario con el mismo correo electrónico
-        Usuario usuarioExistente = Usuario.find("byCorreoElectronico", correoElectronico).first();
-
-        if (usuarioExistente == null) {
-            try {
-                // Verificar si el valor del rol es válido (PADRE o HIJO)
-                if (rol == null || rol.isEmpty()) {
-                    renderText("Rol no puede estar vacío.");
-                    return;
-                }
-
-                // Convertir el string 'rol' a un valor del enum 'Rol'
-                Rol rolUsuario = Rol.valueOf(rol.toUpperCase()); // Convierte el valor de 'rol' a Rol.PADRE o Rol.HIJO
-
-                // Crear un nuevo usuario con nombre, correo, contraseña y rol
-                Usuario nuevoUsuario = new Usuario(nombre, correoElectronico, contraseña, rolUsuario);
-
-                // Si se proporcionó un perfil, se asigna
-                if (perfil != null && !perfil.isEmpty()) {
-                    nuevoUsuario.setPerfil(perfil);
-                }
-
-                // Guardar el usuario en la base de datos
-                nuevoUsuario.save();
-
-                // Mensaje de éxito
-                renderText("Usuario registrado con éxito.");
-            } catch (IllegalArgumentException e) {
-                // Si el rol es incorrecto, devolver un mensaje de error
-                renderText("Rol inválido. Debe ser 'PADRE' o 'HIJO'.");
-            }
-        } else {
-            // Si el usuario ya existe, mostrar un mensaje de error
-            renderText("El usuario ya existe.");
+        // Validaciones comunes
+        String mensajeError = validarEntrada(nombre, correoElectronico, contraseña, rol);
+        if (mensajeError != null) {
+            enviarRespuestaError(mensajeError);
+            return;
         }
+
+        // Verificar si ya existe un usuario con el mismo correo electrónico
+        if (Usuario.find("byCorreoElectronico", correoElectronico).first() != null) {
+            enviarRespuestaError("El usuario ya existe con ese correo electrónico.");
+            return;
+        }
+
+        try {
+            // Cifrar la contraseña con bcrypt
+            String hashedPassword = BCrypt.hashpw(contraseña, BCrypt.gensalt());
+
+            // Crear y guardar el nuevo usuario
+            Usuario nuevoUsuario = new Usuario(nombre, correoElectronico, hashedPassword, Rol.valueOf(rol.toUpperCase()));
+            if (perfil != null && !perfil.isEmpty()) {
+                nuevoUsuario.setPerfil(perfil);
+            }
+            nuevoUsuario.save();
+
+            // Verificar que el usuario se guarda correctamente
+            Usuario usuarioGuardado = Usuario.find("byCorreoElectronico", correoElectronico).first();
+            if (usuarioGuardado != null) {
+                Logger.info("Usuario creado con correo: " + correoElectronico);
+                Logger.info("Rol del usuario: " + rol);
+
+                // Guardar el ID del usuario y el rol en la sesión
+                session.put("usuarioId", nuevoUsuario.getId());  // Almacena el ID del usuario en la sesión
+                session.put("usuarioRol", nuevoUsuario.getRol().name());  // Almacena el rol del usuario en la sesión
+
+                // Redirige al usuario a su dashboard según el rol
+                redirigirPorRol(nuevoUsuario);
+            } else {
+                Logger.error("No se pudo guardar el usuario en la base de datos.");
+                enviarRespuestaError("Hubo un error al registrar el usuario.");
+            }
+
+        } catch (Exception e) {
+            Logger.error("Error al registrar el usuario: " + e.getMessage(), e);
+            enviarRespuestaError("Hubo un error al registrar el usuario: " + e.getMessage());
+        }
+    }
+
+    // Validación genérica para entrada
+    private static String validarEntrada(String nombre, String correo, String contraseña, String rol) {
+        if (!esNombreValido(nombre)) return "El nombre es obligatorio.";
+        if (!esCorreoValido(correo)) return "El correo electrónico no tiene un formato válido.";
+        if (!esContraseñaValida(contraseña)) return "La contraseña debe tener al menos 6 caracteres.";
+        if (rol == null || rol.isEmpty()) return "El rol no puede estar vacío.";
+
+        try {
+            Rol.valueOf(rol.toUpperCase()); // Validación del rol
+        } catch (IllegalArgumentException e) {
+            return "Rol inválido. Debe ser 'PADRE' o 'HIJO'.";
+        }
+
+        return null; // Si todo esta bien
     }
 
     public static void login(String correoElectronico, String contraseña) {
-        // Buscar el usuario en la base de datos
-        Usuario usuarioExistente = Usuario.find("byCorreoElectronicoAndContraseña", correoElectronico, contraseña).first();
+        Usuario usuarioExistente = Usuario.find("byCorreoElectronico", correoElectronico).first();
 
-        if (usuarioExistente != null) {
-            // Verificar que el rol del usuario no sea nulo o incorrecto
-            if (usuarioExistente.getRol() == null) {
-                renderText("Error: El usuario no tiene un rol asignado.");
-                return;
-            }
+        // Validación de usuario
+        if (usuarioExistente == null || !BCrypt.checkpw(contraseña, usuarioExistente.getContraseña())) {
+            enviarRespuestaError("Error: Correo electrónico o contraseña incorrectos.");
+            return;
+        }
 
-            // Comprobar el rol del usuario y redirigir según el tipo de rol
-            if (usuarioExistente.getRol() == Rol.PADRE) {
-                // Obtener los hijos del usuario padre (suponiendo que puedes hacer esta consulta)
-                List<Usuario> hijos = Usuario.find("byRol", Rol.HIJO).fetch();
+        // Validación de rol
+        if (usuarioExistente.getRol() == null) {
+            enviarRespuestaError("Error: El usuario no tiene un rol asignado.");
+            return;
+        }
 
-                // Obtener las tareas asociadas a los hijos
-                List<Tarea> tareasHijos = new ArrayList<>();
-                for (Usuario hijo : hijos) {
-                    List<UsuarioTarea> usuarioTareas = UsuarioTarea.find("byUsuario", hijo).fetch();
-                    for (UsuarioTarea usuarioTarea : usuarioTareas) {
-                        tareasHijos.add(usuarioTarea.getTarea());
-                    }
-                }
+        // Guardar el usuario en renderArgs para su uso posterior
+        renderArgs.put("usuario", usuarioExistente);
 
-                // Pasar los hijos y sus tareas a la vista
-                renderArgs.put("usuario", usuarioExistente);
-                renderArgs.put("hijos", hijos);
-                renderArgs.put("tareasHijos", tareasHijos);
+        // Almacena en la sesión el ID del usuario y su rol
+        session.put("usuarioId", usuarioExistente.getId());  // Almacena el ID en la sesión
+        session.put("usuarioRol", usuarioExistente.getRol().name());  // Almacena el rol en la sesión
 
-                // Redirigir a la página para padres
+        redirigirPorRol(usuarioExistente);  // Redirige al dashboard correspondiente
+    }
+
+    private static void redirigirPorRol(Usuario usuario) {
+        Logger.info("Redirigiendo usuario con correo: " + usuario.getCorreoElectronico());
+        Logger.info("Rol del usuario: " + usuario.getRol());
+
+        // Guardar el usuario en el contexto de la vista
+        renderArgs.put("usuario", usuario);
+
+        String redirectUrl = session.get("redirectUrl");
+        if (redirectUrl != null) {
+            session.remove("redirectUrl");
+            Logger.info("Redirigiendo a URL almacenada: " + redirectUrl);
+            redirect(redirectUrl);
+            return;
+        }
+
+        List<UsuarioTarea> usuarioTareas = UsuarioTarea.find("byUsuario", usuario).fetch();
+
+        // Obtener solo las tareas asociadas
+        List<Tarea> tareas = new ArrayList<>();
+        for (UsuarioTarea usuarioTarea : usuarioTareas) {
+            tareas.add(usuarioTarea.getTarea());
+        }
+
+        switch (usuario.getRol()) {
+            case PADRE:
+                Logger.info("Redirigiendo al Dashboard del PADRE.");
                 renderTemplate("Application/PadreDashboard.html");
-            } else if (usuarioExistente.getRol() == Rol.HIJO) {
-                // Pasar el usuario hijo a la vista
-                renderArgs.put("usuario", usuarioExistente);
-
-                // Redirigir a la página para hijos
+                break;
+            case HIJO:
+                Logger.info("Redirigiendo al Dashboard del HIJO.");
                 renderTemplate("Application/HijoDashboard.html");
-            } else {
-                // Si no se encuentra un rol válido (aunque esto no debería ocurrir)
-                renderText("Error: Rol no válido.");
-            }
-        } else {
-            // Mostrar mensaje de error si las credenciales son incorrectas
-            renderText("Error: Correo electrónico o contraseña incorrectos.");
+                break;
+            default:
+                Logger.error("Rol no válido: " + usuario.getRol());
+                enviarRespuestaError("Error: Rol no válido.");
+                break;
         }
     }
 
+
     public static void logout() {
-        session.clear(); // Limpia la sesión actual
-        index(); // Redirige al método index()
+        session.remove("usuarioId"); // Solo elimina el id del usuario
+        index(); // Redirige al metodo index()
     }
 
-
-/*
-    public static void iniBD() {
-        // Limpiar base de datos (opcional, útil para pruebas)
-        Fixtures.deleteDatabase();
-
-        // Crear algunos usuarios de ejemplo (els constructors tenen parámetres)
-        Usuario usuario1 = new Usuario("Arnau", "arnau@gmail.com", "password");
-        usuario1.save();
-
-        Usuario usuario2 = new Usuario("María", "maria@example.com", "password123");
-        usuario2.save();
-
-        // Crear algunas tareas de ejemplo
-        Tarea tarea1 = new Tarea("Completar proyecto", "Terminar el proyecto de Java", "en progreso", "alta");
-        tarea1.save();
-
-        Tarea tarea2 = new Tarea("Estudiar para examen", "Estudiar para el examen de redes", "pendiente", "media");
-        tarea2.save();
-
-        // Establecer la fecha de creación (actual) y la fecha límite (posterior)
-        Date fechaCreacion = new Date();
-
-        // Sumar 7 días a la fecha de creación para establecer la fecha límite
-        Calendar calendario = Calendar.getInstance();
-        calendario.setTime(fechaCreacion);
-        calendario.add(Calendar.DAY_OF_MONTH, 7);
-        Date fechaLimite = calendario.getTime();
-
-        // Crear relaciones entre usuarios y tareas con fechas de creación y límite diferentes
-        UsuarioTarea usuarioTarea1 = new UsuarioTarea(usuario1, tarea1, fechaCreacion, fechaLimite);
-        usuarioTarea1.save();
-
-        // Ajustar fecha límite para otra tarea (por ejemplo, 10 días después de la creación)
-        calendario.add(Calendar.DAY_OF_MONTH, 3);  // Esto suma 3 días adicionales a la fecha límite anterior
-        Date fechaLimiteTarea2 = calendario.getTime();
-
-        UsuarioTarea usuarioTarea2 = new UsuarioTarea(usuario2, tarea2, fechaCreacion, fechaLimiteTarea2);
-        usuarioTarea2.save();
-
-        renderText("Base de datos inicializada con datos de ejemplo.");
-    }
-*/
     public static void darDeBajaUsuario(String nombre) {
         Usuario usuarioExistente = Usuario.find("byNombre", nombre).first();
 
-        if (usuarioExistente != null) {
-            try {
-                usuarioExistente.delete();
-                renderText("Usuario " + nombre + " y todos sus datos asociados eliminados con éxito.");
-            } catch (Exception e) {
-                renderText("Error al eliminar el usuario " + nombre + ": " + e.getMessage());
-            }
-        } else {
-            renderText("Usuario no encontrado: " + nombre);
+        if (usuarioExistente == null) {
+            enviarRespuestaError("Usuario no encontrado: " + nombre);
+            return;
+        }
+
+        try {
+            usuarioExistente.delete();
+            enviarRespuestaError("Usuario " + nombre + " y todos sus datos asociados eliminados con éxito.");
+        } catch (Exception e) {
+            enviarRespuestaError("Error al eliminar el usuario " + nombre + ": " + e.getMessage());
         }
     }
+    public static void agregarTarea(String titulo, String descripcion, String estado, String prioridad, String hijoId) {
+        Usuario usuarioPadre = obtenerUsuarioPadre();
+        if (usuarioPadre == null) return;
+
+        try {
+            // Validación de los campos de tarea
+            if (titulo == null || titulo.isEmpty()) {
+                enviarRespuestaError("El título es obligatorio.");
+                return;
+            }
+            if (descripcion == null || descripcion.isEmpty()) {
+                enviarRespuestaError("La descripción es obligatoria.");
+                return;
+            }
+            if (estado == null || estado.isEmpty()) {
+                enviarRespuestaError("El estado es obligatorio.");
+                return;
+            }
+            if (prioridad == null || prioridad.isEmpty()) {
+                enviarRespuestaError("La prioridad es obligatoria.");
+                return;
+            }
+
+            // Fecha de creación
+            String fechaFormateada = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+            // Crear nueva tarea
+            Tarea nuevaTarea = new Tarea(titulo, descripcion, estado, prioridad, fechaFormateada);
+            nuevaTarea.save();
+
+            // Relacionar tarea con hijo (si existe hijoId)
+            if (hijoId != null && !hijoId.isEmpty()) {
+                Usuario hijo = Usuario.findById(Long.parseLong(hijoId));
+                if (hijo != null && hijo.getRol() == Rol.HIJO) {
+                    UsuarioTarea usuarioTarea = new UsuarioTarea(hijo, nuevaTarea, new Date(), null);
+                    usuarioTarea.save();
+                } else {
+                    enviarRespuestaError("El hijo seleccionado no existe o no tiene rol de HIJO.");
+                    return;
+                }
+            }
+
+            renderJSON(new ResponseMessage(true, "Tarea creada y asignada con éxito."));
+        } catch (Exception e) {
+            enviarRespuestaError("Error al crear la tarea: " + e.getMessage());
+        }
+    }
+
+    public static void editarTarea(Long tareaId, String titulo, String descripcion, String estado, String prioridad) {
+        if (!esUsuarioPadre()) return; // Validación de rol simplificada
+
+        try {
+            Tarea tarea = Tarea.findById(tareaId);
+            if (tarea != null) {
+                // Actualizar los campos de la tarea
+                tarea.setTitulo(titulo);
+                tarea.setDescripcion(descripcion);
+                tarea.setEstado(estado);
+                tarea.setPrioridad(prioridad);
+                tarea.save();
+                enviarRespuestaError("Tarea actualizada con éxito.");
+            } else {
+                enviarRespuestaError("Error: Tarea no encontrada.");
+            }
+        } catch (Exception e) {
+            enviarRespuestaError("Error al editar la tarea: " + e.getMessage());
+        }
+    }
+
+    public static void eliminarTarea(Long tareaId) {
+        if (!esUsuarioPadre()) return; // Validación de rol simplificada
+
+        try {
+            Tarea tarea = Tarea.findById(tareaId);
+            if (tarea != null) {
+                tarea.delete();
+                enviarRespuestaError("Tarea eliminada con éxito.");
+            } else {
+                enviarRespuestaError("Error: Tarea no encontrada.");
+            }
+        } catch (Exception e) {
+            enviarRespuestaError("Error al eliminar la tarea: " + e.getMessage());
+        }
+    }
+
+    public static void verTareasAsignadas() {
+        Usuario usuarioPadre = obtenerUsuarioPadre();
+        if (usuarioPadre == null) return;
+
+        List<UsuarioTarea> tareasAsignadas = UsuarioTarea.find("select ut from UsuarioTarea ut where ut.usuario.rol = ? and ut.usuario.padre = ?", Rol.HIJO, usuarioPadre).fetch();
+
+        if (tareasAsignadas.isEmpty()) {
+            enviarRespuestaError("No hay tareas asignadas a tus hijos.");
+            return;
+        }
+
+        renderArgs.put("usuario", usuarioPadre);
+        renderArgs.put("tareasAsignadas", tareasAsignadas);
+        renderTemplate("Application/VerTareasAsignadas.html");
+    }
+
+    public static void marcarTareaCompletada(Long tareaId) {
+        if (!esUsuarioPadre()) return; // Validación de rol simplificada
+
+        try {
+            Tarea tarea = Tarea.findById(tareaId);
+            if (tarea != null) {
+                tarea.setEstado("completada");
+                tarea.save();
+                enviarRespuestaError("Tarea marcada como completada.");
+            } else {
+                enviarRespuestaError("Error: Tarea no encontrada.");
+            }
+        } catch (Exception e) {
+            enviarRespuestaError("Error al marcar la tarea como completada: " + e.getMessage());
+        }
+    }
+
+    private static Usuario obtenerUsuarioValido(String rolRequerido) {
+        Usuario usuario = renderArgs.get("usuario", Usuario.class);
+        if (usuario == null || !usuario.getRol().toString().equals(rolRequerido)) {
+            enviarRespuestaError("Error: Solo los usuarios con rol " + rolRequerido + " pueden acceder a esta funcionalidad.");
+            return null;
+        }
+        return usuario;
+    }
+    private static boolean esUsuarioPadre() {
+        return obtenerUsuarioValido("PADRE") != null;
+    }
+
+    private static Usuario obtenerUsuarioPadre() {
+        return obtenerUsuarioValido("PADRE");
+    }
+
+    // Clase para respuestas JSON estructuradas
+    static class ResponseMessage {
+        boolean success;
+        String message;
+        Usuario usuario; // Usuario asociado a la respuesta (si es necesario)
+
+        ResponseMessage(boolean success, String message) {
+            this.success = success;
+            this.message = message;
+        }
+
+        ResponseMessage(boolean success, String message, Usuario usuario) {
+            this.success = success;
+            this.message = message;
+            this.usuario = usuario;
+        }
+    }
+
+    // Metodo para enviar respuesta de error en formato JSON
+    private static void enviarRespuestaError(String mensaje) {
+        renderJSON(new ResponseMessage(false, mensaje));
+    }
+
+    // Metodo para validar un correo electrónico
+    private static boolean esCorreoValido(String correoElectronico) {
+        return correoElectronico != null && correoElectronico.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
+    }
+
+    // Metodo para validar una contraseña
+    private static boolean esContraseñaValida(String contraseña) {
+        return contraseña != null && contraseña.length() >= 6 &&
+                contraseña.matches(".*[A-Z].*") &&
+                contraseña.matches(".*[0-9].*") &&
+                contraseña.matches(".*[!@#$%^&*].*");
+    }
+
+
+    // Metodo para validar un nombre
+    private static boolean esNombreValido(String nombre) {
+        return nombre != null && !nombre.isEmpty();
+    }
+
+
+
+
 }
+
+
+

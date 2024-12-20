@@ -4,11 +4,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76fa5f90-720c-4ed6-a558-eee31242d21d" name="Changes" comment="Integración de Bootstrap 4.5 y W3.CSS y mejora del formulario de inicio de sesión con un aspecto más profesional.">
-      <change afterPath="$PROJECT_DIR$/app/views/Application/styles-parents.css" afterDir="false" />
+    <list default="true" id="76fa5f90-720c-4ed6-a558-eee31242d21d" name="Changes" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;tasques.iws">
+      <change beforePath="$PROJECT_DIR$/app/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Bootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/Tarea.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Tarea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/Application/HijoDashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/HijoDashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/Application/PadreDashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/PadreDashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/Application/PaginaPrincipal.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/Application/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/Application/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/Application/styles-parents.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/styles-parents.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/Application/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/dependencies.yml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/dependencies.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasques.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tasques.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasques.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/tasques.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tasques.iws" beforeDir="false" afterPath="$PROJECT_DIR$/tasques.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-result/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/test-result/application.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/BasicTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BasicTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/ApplicationTest" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/ApplicationTest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/BasicTest" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/BasicTest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/Bootstrap" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/Bootstrap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/_app_views_Application_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/_app_views_Application_index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/_app_views_Application_register.html" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/_app_views_Application_register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/controllers.Application" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/controllers.Application" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Tarea" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/models.Tarea" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/BasicTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/BasicTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/Bootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/Bootstrap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/controllers/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/controllers/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/models/Tarea.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/models/Tarea.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/DocViewerPlugin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/controllers/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/production/tasques/controllers/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/controllers/PlayDocumentation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/controllers/ProjectDocumentation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/helpers/CheatSheetHelper$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/helpers/CheatSheetHelper$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/helpers/CheatSheetHelper$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/helpers/CheatSheetHelper$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/helpers/CheatSheetHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/helpers/LangMenuHelper$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/helpers/LangMenuHelper$LangMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/helpers/LangMenuHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/models/Comentario.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/production/tasques/models/Comentario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/models/Tarea.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/production/tasques/models/Tarea.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/models/Usuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/production/tasques/models/Usuario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/models/UsuarioTarea.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/production/tasques/models/UsuarioTarea.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/play.plugins" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/views/Application/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/production/tasques/views/Application/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/views/PlayDocumentation/cheatSheet.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/views/PlayDocumentation/page.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/views/PlayDocumentation/releases.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/test/tasques/ApplicationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/test/tasques/ApplicationTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/test/tasques/BasicTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/test/tasques/BasicTest.class" afterDir="false" />
     </list>
     <list id="02be520b-e177-4282-8d3b-652268a1839e" name="Fixes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,29 +99,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JUnit.All in tasques (1).executor": "Run",
-    "JUnit.All in tasques.executor": "Run",
-    "JUnit.ApplicationTest.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/arnau/OneDrive/Escritorio/play-1.5.3/play-1.5.3/tasques/app/views/Application",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JUnit.All in tasques (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in tasques.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ApplicationTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/arnau/OneDrive/Escritorio/play-1.5.3/play-1.5.3/tasques/lib&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\conf" />
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques\conf" />
       <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques\app\views\Application" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques" />
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques\public\stylesheets" />
+    </key>
   </component>
-  <component name="RunManager" selected="JUnit.ApplicationTest">
+  <component name="RunManager" selected="JUnit.All in tasques (1)">
     <configuration name="All in tasques (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tasques" />
       <option name="PACKAGE_NAME" value="" />
@@ -113,9 +164,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ApplicationTest" />
-        <item itemvalue="JUnit.All in tasques" />
         <item itemvalue="JUnit.All in tasques (1)" />
+        <item itemvalue="JUnit.All in tasques" />
+        <item itemvalue="JUnit.ApplicationTest" />
       </list>
     </recent_temporary>
   </component>

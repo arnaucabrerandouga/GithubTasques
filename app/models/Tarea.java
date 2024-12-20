@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Tarea extends Model{
+public class Tarea extends Model {
 
-    //@Id aixo ens ho fa la clase model
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Long id; // PK: Clave primaria de la tabla Tarea
-    //podem pusar public en comptes de private
     private String titulo;
     private String descripcion;
     private String estado;
     private String prioridad;
+
+    // Nuevo campo para la fecha de creación
+    private String fechaCreacion;
 
     @OneToMany(mappedBy = "tarea", cascade = CascadeType.ALL)
     private List<UsuarioTarea> usuariosTareas = new ArrayList<>(); // Relación con UsuarioTarea
@@ -23,12 +22,13 @@ public class Tarea extends Model{
     @OneToMany(mappedBy = "tarea", cascade = CascadeType.ALL)
     private List<Comentario> comentarios = new ArrayList<>(); // Relación con Comentarios
 
-    // Constructor
-    public Tarea(String titulo, String descripcion, String estado, String prioridad) {
+    // Constructor actualizado para incluir la fecha de creación
+    public Tarea(String titulo, String descripcion, String estado, String prioridad, String fechaCreacion) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
         this.prioridad = prioridad;
+        this.fechaCreacion = fechaCreacion;
     }
 
     // Getters y Setters
@@ -66,6 +66,14 @@ public class Tarea extends Model{
 
     public void setPrioridad(String prioridad) {
         this.prioridad = prioridad;
+    }
+
+    public String getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public List<UsuarioTarea> getUsuariosTareas() {

@@ -1,50 +1,95 @@
-#{form @registrarUsuario(), id:'formRegister'}
-#{field 'user.nombre'}
-<p class="${field.errorClass}">
-    <label>Nombre:</label>
-    <input type="text" name="nombre" size="16" value="${user?.nombre}"> *
-    <span class="error">${field.error}</span>
-</p>
-#{/field}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../../../public/stylesheets/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container my-5">
+    <div class="card w3-round-large shadow">
+        <div class="card-body">
+            <form id="formRegister" action="@{registrarUsuario()}" method="post">
+                <h2 class="text-center mb-4">Registrar Nuevo Usuario</h2>
 
-#{field 'user.correoElectronico'}
-<p class="${field.errorClass}">
-    <label>Correo Electrónico:</label>
-    <input type="email" name="correoElectronico" size="16" value="${user?.correoElectronico}"> *
-    <span class="error">${field.error}</span>
-</p>
-#{/field}
+                <!-- Mostrar mensaje de error si existe -->
+                <div class="alert alert-danger" style="display: ${flash.get('error') != null ? 'block' : 'none'};">
+                    ${flash.get('error')}
+                </div>
 
-#{field 'user.contraseña'}
-<p class="${field.errorClass}">
-    <label>Contraseña:</label>
-    <input type="password" name="contraseña" size="16" value="${user?.contraseña}"> *
-    <span class="error">${field.error}</span>
-</p>
-#{/field}
+                <!-- Campo Nombre -->
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control w3-round" id="nombre" name="nombre" value="${user?.nombre}" required>
+                    <!-- Comprobación si field y field.error existen antes de mostrarse -->
+                    <span class="error text-danger">${field?.error ? field.error : ''}</span>
+                </div>
 
-#{field 'perfil'}
-<p class="${field.errorClass}">
-    <label>Perfil:</label>
-    <input type="text" name="perfil" size="16" value="${perfil}">
-    <span class="error">${field.error}</span>
-    <small>(Opcional)</small>
-</p>
-#{/field}
+                <!-- Campo Correo Electrónico -->
+                <div class="form-group">
+                    <label for="correoElectronico">Correo Electrónico:</label>
+                    <input type="email" class="form-control w3-round" id="correoElectronico" name="correoElectronico" value="${user?.correoElectronico}" required>
+                    <span class="error text-danger">${field?.error ? field.error : ''}</span>
+                </div>
 
-<!-- Agregar selección de rol -->
-#{field 'user.rol'}
-<p class="${field.errorClass}">
-    <label>Rol:</label>
-    <select name="rol">
-        <option value="PADRE">PADRE</option>
-        <option value="HIJO">HIJO</option>
-    </select>
-    <span class="error">${field.error}</span>
-</p>
-#{/field}
+                <!-- Campo Contraseña -->
+                <div class="form-group">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" class="form-control w3-round" id="contraseña" name="contraseña" value="${user?.contraseña}" required>
+                    <span class="error text-danger">${field?.error ? field.error : ''}</span>
+                </div>
 
-<p class="buttons">
-    <input type="submit" value="Registrar"> <a href="@{index()}">Cancelar</a>
-</p>
-#{/form}
+                <!-- Campo Perfil -->
+                <div class="form-group">
+                    <label for="perfil">Perfil:</label>
+                    <input type="text" class="form-control w3-round" id="perfil" name="perfil" value="${perfil}">
+                    <span class="error text-danger">${field?.error ? field.error : ''}</span>
+                    <small class="form-text text-muted">(Opcional)</small>
+                </div>
+
+                <!-- Campo Rol -->
+                <div class="form-group">
+                    <label for="rol">Rol:</label>
+                    <select class="form-control w3-round" name="rol" id="rol" required>
+                        <option value="PADRE" ${user?.rol == 'PADRE' ? 'selected' : ''}>PADRE</option>
+                        <option value="HIJO" ${user?.rol == 'HIJO' ? 'selected' : ''}>HIJO</option>
+                    </select>
+                    <span class="error text-danger">${field?.error ? field.error : ''}</span>
+                </div>
+
+
+                <!-- Botón de Enviar -->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary w3-round px-4">Registrar</button>
+                </div>
+
+                <!-- Enlace de Cancelar -->
+                <p class="text-center mt-3">
+                    <a href="@{index()}" class="text-decoration-none">Cancelar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Validación del formulario en el cliente
+    document.getElementById("formRegister").addEventListener("submit", function(event) {
+        var nombre = document.getElementById("nombre").value;
+        var correo = document.getElementById("correoElectronico").value;
+        var contraseña = document.getElementById("contraseña").value;
+
+        if (!nombre || !correo || !contraseña) {
+            alert("Por favor complete todos los campos obligatorios.");
+            event.preventDefault();
+        }
+    });
+</script>
+
+</body>
+</html>

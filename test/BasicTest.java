@@ -5,6 +5,9 @@ import javax.persistence.*;
 
 import models.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class BasicTest extends UnitTest {
 
     @Before
@@ -19,8 +22,9 @@ public class BasicTest extends UnitTest {
         usuario.setPerfil("admin"); // Establecer el perfil opcionalmente
         JPA.em().persist(usuario);
 
-        // Crear una tarea (sin fechas, ya que ahora se gestionan en la relación UsuarioTarea)
-        Tarea tarea = new Tarea("Desarrollar aplicación", "Construir una aplicación de gestión de tareas", "en progreso", "alta");
+        // Crear algunas tareas de ejemplo
+        String fechaCreacion = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Tarea tarea = new Tarea("Completar proyecto", "Terminar el proyecto de Java", "en progreso", "alta", fechaCreacion);
         JPA.em().persist(tarea);
 
         // Crear relación usuario-tarea con fechas de creación y límite
@@ -40,7 +44,7 @@ public class BasicTest extends UnitTest {
         assertNotNull(usuarioGuardado);  // Verificar que el usuario fue guardado
         assertEquals(Rol.PADRE, usuarioGuardado.getRol()); // Verificar que el rol es el correcto
 
-        Tarea tareaGuardada = Tarea.find("byTitulo", "Desarrollar aplicación").first();
+        Tarea tareaGuardada = Tarea.find("byTitulo", "Completar proyecto").first();  // Cambio aquí
         assertNotNull(tareaGuardada);  // Verificar que la tarea fue guardada
 
         // Verificar que la relación UsuarioTarea se ha creado
@@ -51,4 +55,5 @@ public class BasicTest extends UnitTest {
         Comentario comentarioGuardado = Comentario.find("byTareaAndUsuario", tareaGuardada, usuarioGuardado).first();
         assertNotNull(comentarioGuardado);  // Verificar que el comentario fue guardado
     }
+
 }
