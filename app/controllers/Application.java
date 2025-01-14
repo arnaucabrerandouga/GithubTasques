@@ -10,11 +10,89 @@ import java.time.LocalDateTime;  // Para trabajar con fechas y horas
 import java.time.format.DateTimeFormatter;  // Para formatear fechas
 import org.mindrot.jbcrypt.BCrypt;  // Importa la librería de bcrypt
 import play.Logger;  // Asegúrate de tener este import
-
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 
 public class Application extends Controller {
+
+    // Función para mostrar un mensaje de bienvenida (test para Android)
+    public static void testAndroid() {
+        // Mensaje de bienvenida para la app Android
+        renderText("¡Bienvenido al sistema!");
+    }
+
+    public static void loginAndroid(String correoElectronico, String contraseña) {
+
+        try {
+
+            Usuario usuarioExistente = Usuario.find("byCorreoElectronico", correoElectronico).first();
+            Logger.info("Solicitud de login recibida con correo: " + correoElectronico);
+            if (usuarioExistente == null || !BCrypt.checkpw(contraseña, usuarioExistente.getContraseña())) {
+                enviarRespuestaError("Correo electrónico o contraseña incorrectos.");
+                return;
+            }
+
+            if (usuarioExistente.getRol() == null) {
+                enviarRespuestaError("El usuario no tiene un rol asignado.");
+                return;
+            }
+
+            // Respuesta de éxito con datos del usuario
+            ResponseMessage respuesta = new ResponseMessage(
+                    true,
+                    "Inicio de sesión exitoso.",
+                    usuarioExistente
+            );
+            renderJSON(respuesta);
+
+        } catch (Exception e) {
+            Logger.error("Error en el inicio de sesión: " + e.getMessage(), e);
+            enviarRespuestaError("Error interno del servidor.");
+        }
+    }
+
+    public static void registrarUsuarioAndroid(String nombre, String correoElectronico, String contraseña, String perfil, String rol) {
+        try {
+            // Validar datos de entrada
+            String mensajeError = validarEntrada(nombre, correoElectronico, contraseña, rol);
+            if (mensajeError != null) {
+                enviarRespuestaError(mensajeError);
+                return;
+            }
+
+            // Verificar si ya existe un usuario con el correo proporcionado
+            if (Usuario.find("byCorreoElectronico", correoElectronico).first() != null) {
+                enviarRespuestaError("El usuario ya existe con ese correo electrónico.");
+                return;
+            }
+
+            // Crear nuevo usuario
+            String hashedPassword = BCrypt.hashpw(contraseña, BCrypt.gensalt());
+            Usuario nuevoUsuario = new Usuario(nombre, correoElectronico, hashedPassword, Rol.valueOf(rol.toUpperCase()));
+
+            if (perfil != null && !perfil.isEmpty()) {
+                nuevoUsuario.setPerfil(perfil);
+            }
+
+            nuevoUsuario.save();
+
+            // Respuesta de éxito con datos del usuario
+            ResponseMessage respuesta = new ResponseMessage(
+                    true,
+                    "Usuario registrado exitosamente.",
+                    nuevoUsuario
+            );
+            renderJSON(respuesta);
+
+        } catch (Exception e) {
+            Logger.error("Error al registrar el usuario: " + e.getMessage(), e);
+            enviarRespuestaError("Error interno al registrar el usuario.");
+        }
+    }
+
+
 
     public static void index() {
         render();
@@ -22,13 +100,6 @@ public class Application extends Controller {
 
     public static void register() {
         renderTemplate("Application/register.html");
-    }
-
-
-// Función para mostrar un mensaje de bienvenida (test para Android)
-    public static void testAndroid() {
-        // Mensaje de bienvenida para la app Android
-        renderText("¡Bienvenido al sistema!");
     }
 
     public static void registrarUsuario(String nombre, String correoElectronico, String contraseña, String perfil, String rol) {
@@ -77,22 +148,6 @@ public class Application extends Controller {
             Logger.error("Error al registrar el usuario: " + e.getMessage(), e);
             enviarRespuestaError("Hubo un error al registrar el usuario: " + e.getMessage());
         }
-    }
-
-    // Validación genérica para entrada
-    private static String validarEntrada(String nombre, String correo, String contraseña, String rol) {
-        if (!esNombreValido(nombre)) return "El nombre es obligatorio.";
-        if (!esCorreoValido(correo)) return "El correo electrónico no tiene un formato válido.";
-        if (!esContraseñaValida(contraseña)) return "La contraseña debe tener al menos 6 caracteres.";
-        if (rol == null || rol.isEmpty()) return "El rol no puede estar vacío.";
-
-        try {
-            Rol.valueOf(rol.toUpperCase()); // Validación del rol
-        } catch (IllegalArgumentException e) {
-            return "Rol inválido. Debe ser 'PADRE' o 'HIJO'.";
-        }
-
-        return null; // Si todo esta bien
     }
 
     public static void login(String correoElectronico, String contraseña) {
@@ -158,7 +213,6 @@ public class Application extends Controller {
                 break;
         }
     }
-
 
     public static void logout() {
         session.remove("usuarioId"); // Solo elimina el id del usuario
@@ -298,6 +352,24 @@ public class Application extends Controller {
         }
     }
 
+
+
+    // Validación genérica para entrada
+    private static String validarEntrada(String nombre, String correo, String contraseña, String rol) {
+        if (!esNombreValido(nombre)) return "El nombre es obligatorio.";
+        if (!esCorreoValido(correo)) return "El correo electrónico no tiene un formato válido.";
+        if (!esContraseñaValida(contraseña)) return "La contraseña debe tener al menos 6 caracteres.";
+        if (rol == null || rol.isEmpty()) return "El rol no puede estar vacío.";
+
+        try {
+            Rol.valueOf(rol.toUpperCase()); // Validación del rol
+        } catch (IllegalArgumentException e) {
+            return "Rol inválido. Debe ser 'PADRE' o 'HIJO'.";
+        }
+
+        return null; // Si todo esta bien
+    }
+
     private static Usuario obtenerUsuarioValido(String rolRequerido) {
         Usuario usuario = renderArgs.get("usuario", Usuario.class);
         if (usuario == null || !usuario.getRol().toString().equals(rolRequerido)) {
@@ -306,6 +378,7 @@ public class Application extends Controller {
         }
         return usuario;
     }
+
     private static boolean esUsuarioPadre() {
         return obtenerUsuarioValido("PADRE") != null;
     }
@@ -349,7 +422,6 @@ public class Application extends Controller {
                 contraseña.matches(".*[0-9].*") &&
                 contraseña.matches(".*[!@#$%^&*].*");
     }
-
 
     // Metodo para validar un nombre
     private static boolean esNombreValido(String nombre) {
