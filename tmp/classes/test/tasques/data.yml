@@ -1,0 +1,36 @@
+# you describe your data using the YAML notation here
+# and then load them using Fixtures.load("data.yml")
+
+# User(bob):
+#   email: bob@gmail.com
+#   password: secret
+#   fullname: Bob
+
+Usuario(arnau):
+  nombre: Arnau
+  correoElectronico: arnau@gmail.com
+  contraseña: password
+  dataRegistro: 2023-01-01
+  perfil: admin
+
+Usuario(laura):
+  nombre: Laura
+  correoElectronico: laura@gmail.com
+  contraseña: password
+  dataRegistro: 2023-01-01
+  perfil: user
+
+Tarea(task1):
+  titulo: Develop app
+  descripcion: Build task management app
+  dataCreacio: 2023-09-01
+  dataLimit: 2023-12-01
+  estado: in progress
+  prioridad: high
+  usuariosTareas: [arnau, laura]
+
+Comentario(comment1):
+  tarea: task1
+  usuario: arnau
+  contenido: "Great progress!"
+  dataComentario: 2023-10-01

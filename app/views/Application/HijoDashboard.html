@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Hijos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="/path/to/your/css/hijo-dashboard.css"> <!-- Asegúrate de incluir tu CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+  <header class="header">
+    <h1>¡Bienvenido, ${usuario.nombre}!</h1>
+    <p class="welcome-text">Te damos la bienvenida al Panel de Hijos.</p>
+    <p class="user-info">Tu correo electrónico es: ${usuario.correoElectronico}</p>
+  </header>
+
+  <section class="tasks">
+    <h2 class="task-title">Las tareas asignadas a ti son:</h2>
+
+    #{if tareas != null && tareas.size() > 0}
+    #{list items:tareas, as:'tarea'}
+    <div class="task-card">
+      <h3>${tarea.titulo}</h3>
+      <p>${tarea.descripcion}</p>
+      <p><strong>Estado:</strong> ${tarea.estado}</p>
+      <p><strong>Prioridad:</strong> <span class="priority">${tarea.prioridad}</span></p>
+    </div>
+    #{/list}
+    #{/if}
+    #{else}
+    <p class="no-tasks">No tienes tareas asignadas por el momento.</p>
+    #{/else}
+  </section>
+
+  <footer class="logout">
+    <a href="@{logout()}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </footer>
+</div>
+
+</body>
+</html>

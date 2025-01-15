@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="76fa5f90-720c-4ed6-a558-eee31242d21d" name="Changes" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;tasques.iws">
+      <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/conf/application.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasques.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/tasques.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasques.iws" beforeDir="false" afterPath="$PROJECT_DIR$/tasques.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-result/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/test-result/application.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/bytecode/DEV/controllers.Application" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/bytecode/DEV/controllers.Application" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/controllers/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/controllers/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/classes/production/tasques/controllers/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classes/production/tasques/controllers/Application.class" afterDir="false" />
+    </list>
+    <list id="02be520b-e177-4282-8d3b-652268a1839e" name="Fixes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;arnaucabrerandouga&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/arnaucabrerandouga/GithubTasques.git&quot;,
+    &quot;accountId&quot;: &quot;0388c468-62ad-4bd7-97ef-8104c35836d2&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2mxxpOrQP2hsLnIgRHGDAiQ8Nt0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JUnit.All in tasques (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in tasques.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ApplicationTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/arnau/OneDrive/Escritorio/play-1.5.3/play-1.5.3/tasques/lib&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\conf" />
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques\conf" />
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques\app\views\Application" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques" />
+      <recent name="C:\Users\arnau\OneDrive\Escritorio\play-1.5.3\play-1.5.3\tasques\public\stylesheets" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.All in tasques (1)">
+    <configuration name="All in tasques (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tasques" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in tasques" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tasques" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApplicationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tasques" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ApplicationTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.All in tasques (1)" />
+      <item itemvalue="JUnit.All in tasques" />
+      <item itemvalue="JUnit.ApplicationTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in tasques (1)" />
+        <item itemvalue="JUnit.All in tasques" />
+        <item itemvalue="JUnit.ApplicationTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="76fa5f90-720c-4ed6-a558-eee31242d21d" name="Changes" comment="" />
+      <changelist id="02be520b-e177-4282-8d3b-652268a1839e" name="Fixes" comment="" />
+      <created>1728032212892</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728032212892</updated>
+    </task>
+    <task id="LOCAL-00001" summary="creación de roles para redirección correcta (PADRE/HIJO). Mejorada visualización de tareas y manejo de errores en templates y ajustados para mostrar tareas según rol.">
+      <option name="closed" value="true" />
+      <created>1733962378498</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733962378498</updated>
+    </task>
+    <task id="LOCAL-00002" summary="creación de roles para redirección correcta (PADRE/HIJO). Mejorada visualización de tareas y manejo de errores en templates y ajustados para mostrar tareas según rol.">
+      <option name="closed" value="true" />
+      <created>1733962552695</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733962552695</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixes:index.html">
+      <option name="closed" value="true" />
+      <created>1733966968565</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733966968565</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Integración de Bootstrap 4.5 y W3.CSS y mejora del formulario de inicio de sesión con un aspecto más profesional.">
+      <option name="closed" value="true" />
+      <created>1733968321496</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733968321496</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="creación de roles para redirección correcta (PADRE/HIJO). Mejorada visualización de tareas y manejo de errores en templates y ajustados para mostrar tareas según rol." />
+    <MESSAGE value="Fixes:index.html" />
+    <MESSAGE value="Integración de Bootstrap 4.5 y W3.CSS y mejora del formulario de inicio de sesión con un aspecto más profesional." />
+    <option name="LAST_COMMIT_MESSAGE" value="Integración de Bootstrap 4.5 y W3.CSS y mejora del formulario de inicio de sesión con un aspecto más profesional." />
+  </component>
+</project>

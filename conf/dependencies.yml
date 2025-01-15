@@ -1,0 +1,8 @@
+# Application dependencies
+
+dependencies:
+    - play
+    - play -> docviewer
+    - org.mindrot -> jbcrypt -> 0.4
+    - org.codehaus.jackson -> jackson-mapper-asl 1.9.13
+

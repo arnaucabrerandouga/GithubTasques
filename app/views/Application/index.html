@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Inicio de Sesión</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../../../public/stylesheets/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container my-5">
+    <div class="card w3-round-large shadow">
+        <div class="card-body">
+            <form id="formLogin" action="@{login()}" method="post">
+                <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+                <!-- Mostrar mensaje de error si existe -->
+                <div class="alert alert-danger" style="display: ${flash.get('error') != null ? 'block' : 'none'};">
+                    ${flash.get('error')}
+                </div>
+
+                <!-- Campo de Correo Electrónico -->
+                <div class="form-group">
+                    <label for="correoElectronico">Correo Electrónico:</label>
+                    <input type="email" class="form-control w3-round" id="correoElectronico" name="correoElectronico" value="${flash.get('username')}" required>
+                </div>
+
+                <!-- Campo de Contraseña -->
+                <div class="form-group">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" class="form-control w3-round" id="contraseña" name="contraseña" required>
+                </div>
+
+                <!-- Botón de Enviar -->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary w3-round px-4">Iniciar Sesión</button>
+                </div>
+            </form>
+
+            <!-- Enlace de registro -->
+            <p class="text-center mt-3">
+                <a href="@{register()}" class="text-decoration-none">Registrar Nuevo Usuario</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Validación del formulario en el cliente
+    document.getElementById("formLogin").addEventListener("submit", function(event) {
+        var correo = document.getElementById("correoElectronico").value;
+        var contraseña = document.getElementById("contraseña").value;
+
+        if (!correo || !contraseña) {
+            alert("Por favor complete todos los campos.");
+            event.preventDefault();
+        }
+    });
+</script>
+
+</body>
+</html>
